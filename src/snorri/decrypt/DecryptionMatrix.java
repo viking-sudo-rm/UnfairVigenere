@@ -5,6 +5,7 @@ public class DecryptionMatrix {
 	/*
 	 * 
 	 * TODO: implement a genetic algorithm to optimize english bigram frequencies, etc.
+	 * TODO: implement null instead of character "_"
 	 * 
 	 */
 
@@ -31,12 +32,26 @@ public class DecryptionMatrix {
 				
 	}
 	
-	public char makePlain(char c, int j) {
+	private char makePlain(char c, int j) {
 		for (int i = 0; i < plaintext.length; i++) {
 			if (matrix[i][j] == c)
 				return plaintext[i];
 		}
 		return '_';
+	}
+	
+	public int getMeanDistance(int j) {
+		int sum = 0;
+		int number = plaintext.length;
+		for (int i = 0; i < plaintext.length; i++) {
+			if (matrix[i][j] == '_') {
+				number--;
+				continue;
+			}
+			sum += ((int) matrix[i][j] - (int) plaintext[i] + plaintext.length) % plaintext.length;
+		}
+				
+		return (int) (0.5 * (1f * sum / number));
 	}
 	
 	public String decrypt(String ciphertext) {

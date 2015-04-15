@@ -25,6 +25,12 @@ public class Decrypt {
 		System.out.println(text.substring(0, 40).toUpperCase());
 		System.out.println(decrypt.decrypt(text.substring(0, 40)));
 		
+		System.out.println();
+		
+		System.out.println("Probable Modular Shifts (a = 1): ");
+		for (int i = 0; i < bestFit.getKeySize(); i++)
+			System.out.println(decrypt.getMeanDistance(i) + " " + (char) (decrypt.getMeanDistance(i) + 96));
+		
 	}
 	
 	static String readFile(String fileName) throws IOException {
@@ -81,7 +87,7 @@ public class Decrypt {
 			}
 		}
 		
-		System.out.println("Key Size: " + keySize + " (chi-squared = " + optimumMatrix.getChiSquared() + ")");
+		System.out.println("Key Size: " + keySize + " (chi^2 = " + optimumMatrix.getChiSquared() + ")");
 		
 		return optimumMatrix;
 		
